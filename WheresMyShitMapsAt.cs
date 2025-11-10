@@ -81,11 +81,14 @@ public sealed class WheresMyShitMapsAt : BaseSettingsPlugin<WheresMyShitMapsAtSe
         if (!Settings.FilterStash.Value || !GameController.IngameState.IngameUi.StashElement.IsVisible)
             return;
 
-        var stashItems = GameController.IngameState.IngameUi
+        var visibleStash = GameController.IngameState.IngameUi
             .StashElement
-            .VisibleStash
-            .VisibleInventoryItems;
+            .VisibleStash;
+        
+        if (visibleStash == null)
+            return;
 
+        var stashItems = visibleStash.VisibleInventoryItems;
         ProcessItems(stashItems, highlights);
     }
 
